@@ -1,0 +1,17 @@
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.log
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Dependencies (if any)
+node_modules/
+package-lock.json
+
+# Temporary files
+/tmp/
+.gemini/
