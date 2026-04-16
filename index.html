@@ -96,6 +96,9 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html {
             scroll-behavior: smooth;
         }
 
@@ -217,24 +220,6 @@
             gap: 10px;
         }
 
-        .logo-text {
-            font-size: 1.8rem;
-            color: var(--primary);
-            font-family: 'Playfair Display', serif;
-            font-weight: 800;
-            position: relative;
-        }
-
-        .logo-text span {
-            color: var(--secondary);
-            position: relative;
-        }
-
-        .logo-icon {
-            font-size: 1.2rem;
-            color: var(--secondary);
-        }
-
         .nav-links {
             display: flex;
             gap: 40px;
@@ -256,6 +241,22 @@
             flex-direction: column;
             gap: 6px;
             cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
         }
 
         .hamburger span {
@@ -999,6 +1000,66 @@
             font-weight: 600;
         }
 
+        .form-error {
+            display: none;
+            background: #f8d7da;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+
+        /* Range slider */
+        input[type="range"] {
+            width: 100%;
+            accent-color: var(--primary);
+            cursor: pointer;
+            height: 6px;
+            border: none;
+            padding: 0;
+            background: transparent;
+        }
+
+        .slider-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .slider-row input[type="range"] {
+            flex: 1;
+        }
+
+        .cleanliness-badge {
+            min-width: 42px;
+            height: 42px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            transition: background 0.3s;
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        /* Quote form scroll target — offset for fixed header */
+        #quote-form {
+            scroll-margin-top: 110px;
+        }
+
         /* FOOTER */
         footer {
             background-color: var(--text-dark);
@@ -1126,6 +1187,7 @@
             height: 50px;
             background: var(--primary);
             color: var(--white);
+            border: none;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -1154,18 +1216,18 @@
 
     <!-- Mobile Navigation -->
     <div class="mobile-overlay" id="mobileOverlay"></div>
-    <div class="mobile-nav" id="mobileNav">
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
         <a href="#services" class="nav-link">Services</a>
         <a href="#pricing" class="nav-link">Pricing</a>
         <a href="#about" class="nav-link">About Us</a>
         <a href="#contact" class="nav-link">Contact</a>
-        <a href="#contact" class="btn btn-primary">Book Now</a>
-    </div>
+        <a href="#quote-form" class="btn btn-primary">Book Now</a>
+    </nav>
 
     <!-- Header -->
     <header id="header">
         <div class="container">
-            <nav>
+            <nav aria-label="Main navigation">
                 <a href="#" class="logo-wrap">
                     <img src="sirrala_logo.png" alt="SirraLa Cleaning Services" style="height: 85px; width: auto; object-fit: contain;">
                 </a>
@@ -1174,17 +1236,19 @@
                     <a href="#services" class="nav-link">Services</a>
                     <a href="#pricing" class="nav-link">Pricing</a>
                     <a href="#about" class="nav-link">About</a>
-                    <a href="#contact" class="btn btn-primary">Book a Clean</a>
+                    <a href="#quote-form" class="btn btn-primary">Book a Clean</a>
                 </div>
 
-                <div class="hamburger" id="hamburger">
+                <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileNav">
                     <span></span>
                     <span></span>
                     <span></span>
-                </div>
+                </button>
             </nav>
         </div>
     </header>
+
+    <main id="main-content">
 
     <!-- Hero Section -->
     <section class="hero">
@@ -1197,7 +1261,7 @@
                 <p>Serving San Fernando Valley & Woodland Hills with premium home and business care — 7 Days a week.</p>
                 
                 <div class="hero-ctas">
-                    <a href="#contact" class="btn btn-primary">Get a Free Quote</a>
+                    <a href="#quote-form" class="btn btn-primary">Get a Free Quote</a>
                     <a href="#services" class="btn btn-outline">See Our Services</a>
                 </div>
 
@@ -1210,7 +1274,7 @@
             
             <div class="hero-visual reveal">
                 <div class="review-card">
-                    <div class="review-stars">
+                    <div class="review-stars" aria-hidden="true">
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
@@ -1266,7 +1330,7 @@
                     <div class="service-icon"><i class="fa-solid fa-house"></i></div>
                     <h3>Standard Cleaning</h3>
                     <p>Regular home maintenance covering all main living areas, dusting, vacuuming, and surface sanitization.</p>
-                    <a href="#contact" class="learn-more">Book Standard <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#quote-form" class="learn-more">Book Standard <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
                 
                 <!-- Service 2 -->
@@ -1275,7 +1339,7 @@
                     <div class="service-icon"><i class="fa-solid fa-gem"></i></div>
                     <h3>Platinum Cleaning</h3>
                     <p>Our premium deep-clean service. Top-to-bottom thoroughness for those who want their home to sparkle like new.</p>
-                    <a href="#contact" class="learn-more">Book Platinum <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#quote-form" class="learn-more">Book Platinum <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
 
                 <!-- Service 3 -->
@@ -1283,7 +1347,7 @@
                     <div class="service-icon"><i class="fa-solid fa-briefcase"></i></div>
                     <h3>Small Business & Offices</h3>
                     <p>Professional commercial cleaning to keep your workspace productive, healthy, and looking its professional best.</p>
-                    <a href="#contact" class="learn-more">Book Office <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#quote-form" class="learn-more">Book Office <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
 
                 <!-- Service 4 -->
@@ -1291,7 +1355,7 @@
                     <div class="service-icon"><i class="fa-solid fa-truck-ramp-box"></i></div>
                     <h3>Move In/Out & Airbnb</h3>
                     <p>Complete turnover cleaning for rentals, Airbnbs, and relocations. We ensure the space is pristine for the next guest.</p>
-                    <a href="#contact" class="learn-more">Book Turnover <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#quote-form" class="learn-more">Book Turnover <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
 
@@ -1353,7 +1417,7 @@
         <div class="container reveal">
             <h2>Limited Time Offer</h2>
             <p>$100 OFF when you schedule 4 or more days of cleaning!</p>
-            <a href="#contact" class="btn btn-outline" style="border-color: var(--text-dark);">Claim This Offer Now</a>
+            <a href="#quote-form" class="btn btn-outline" style="border-color: var(--text-dark);">Claim This Offer Now</a>
         </div>
     </section>
 
@@ -1377,7 +1441,7 @@
                         <li><i class="fa-solid fa-check"></i> Floor Mopping</li>
                         <li><i class="fa-solid fa-check"></i> Trash Removal</li>
                     </ul>
-                    <a href="#contact" class="btn btn-outline">Choose Standard</a>
+                    <a href="#quote-form" class="btn btn-outline">Choose Standard</a>
                 </div>
 
                 <div class="pricing-card featured reveal">
@@ -1391,7 +1455,7 @@
                         <li><i class="fa-solid fa-check"></i> Light Fixtures & Vents</li>
                         <li><i class="fa-solid fa-check"></i> Eco-Friendly Supplies</li>
                     </ul>
-                    <a href="#contact" class="btn btn-primary">Choose Platinum</a>
+                    <a href="#quote-form" class="btn btn-primary">Choose Platinum</a>
                 </div>
 
                 <div class="pricing-card reveal">
@@ -1405,7 +1469,7 @@
                         <li><i class="fa-solid fa-check"></i> Dedicated Account Manager</li>
                         <li><i class="fa-solid fa-check"></i> Liability Insured</li>
                     </ul>
-                    <a href="#contact" class="btn btn-outline">Get Custom Quote</a>
+                    <a href="#quote-form" class="btn btn-outline">Get Custom Quote</a>
                 </div>
             </div>
 
@@ -1456,7 +1520,7 @@
 
             <div class="testimonial-grid">
                 <div class="testimonial-card reveal">
-                    <div class="testimonial-stars">
+                    <div class="testimonial-stars" aria-hidden="true">
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
@@ -1473,7 +1537,7 @@
                 </div>
 
                 <div class="testimonial-card reveal" style="transition-delay: 0.15s">
-                    <div class="testimonial-stars">
+                    <div class="testimonial-stars" aria-hidden="true">
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
@@ -1490,7 +1554,7 @@
                 </div>
 
                 <div class="testimonial-card reveal" style="transition-delay: 0.3s">
-                    <div class="testimonial-stars">
+                    <div class="testimonial-stars" aria-hidden="true">
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
@@ -1570,34 +1634,40 @@
                     </div>
 
                     <div class="social-links">
-                        <a href="https://www.facebook.com/profile.php?id=61579489464371" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="https://www.instagram.com/sirralacleaning" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61579489464371" class="social-btn" aria-label="Facebook" rel="noopener noreferrer" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/sirralacleaning" class="social-btn" aria-label="Instagram" rel="noopener noreferrer" target="_blank"><i class="fa-brands fa-instagram"></i></a>
                     </div>
 
                     <div style="margin-top:40px; border-radius: 20px; overflow:hidden; border: 1px solid rgba(0,0,0,0.1);">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d105658.6293392742!2d-118.61483845942171!3d34.18514109312151!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2996e38b0f81d%3A0x67db495c25605d3b!2sSan%20Fernando%20Valley%2C%20CA!5e0!3m2!1sen!2sus!4v1711580000000!5m2!1sen!2sus" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d105658.6293392742!2d-118.61483845942171!3d34.18514109312151!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2996e38b0f81d%3A0x67db495c25605d3b!2sSan%20Fernando%20Valley%2C%20CA!5e0!3m2!1sen!2sus!4v1711580000000!5m2!1sen!2sus" width="100%" height="250" title="San Fernando Valley service area map" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                     </div>
                 </div>
 
-                <div class="booking-wrap reveal">
+                <div class="booking-wrap reveal" id="quote-form">
                     <form id="bookingForm" class="booking-form">
                         <h3 style="margin-bottom: 30px; font-size: 1.8rem;">Request a Free Quote</h3>
                         <div class="form-grid">
+                            <!-- Row 1: Full Name -->
                             <div class="form-group full-width">
                                 <label for="name">Full Name *</label>
                                 <input type="text" id="name" name="name" placeholder="John Doe" required>
                             </div>
+
+                            <!-- Row 2: Phone | Email -->
                             <div class="form-group">
                                 <label for="phone">Phone Number *</label>
-                                <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" title="Please use format: 555-555-5555" required>
+                                <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" pattern="[\d\s\+\-\(\)]{7,20}" title="Please enter a valid phone number" required>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email Address *</label>
                                 <input type="email" id="email" name="email" placeholder="john@example.com" required>
                             </div>
+
+                            <!-- Row 3: Service Type | Property Type -->
                             <div class="form-group">
-                                <label for="service">Service Type</label>
-                                <select id="service" name="service">
+                                <label for="service">Service Type *</label>
+                                <select id="service" name="service" required>
+                                    <option value="" disabled selected>Select a service…</option>
                                     <option value="standard">Standard Cleaning</option>
                                     <option value="platinum">Platinum (Deep Clean)</option>
                                     <option value="commercial">Office / Small Business</option>
@@ -1605,26 +1675,53 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="size">Home Size</label>
-                                <select id="size" name="size">
+                                <label for="property">Property Type *</label>
+                                <select id="property" name="property" required>
+                                    <option value="" disabled selected>Select property type…</option>
                                     <option value="studio">Studio</option>
-                                    <option value="1br">1 Bedroom</option>
-                                    <option value="2br">2 Bedrooms</option>
-                                    <option value="3br">3 Bedrooms</option>
-                                    <option value="4br">4+ Bedrooms / Large</option>
+                                    <option value="1b1b">1 Bed / 1 Bath</option>
+                                    <option value="2b2b">2 Bed / 2 Bath</option>
+                                    <option value="3b2b">3 Bed / 2 Bath</option>
+                                    <option value="4b+">4+ Bed</option>
                                 </select>
                             </div>
+
+                            <!-- Row 4: Approx Sqft | Pets -->
                             <div class="form-group">
-                                <label for="sqft">Approximate Sqft *</label>
-                                <input type="number" id="sqft" name="sqft" placeholder="e.g. 1500" min="100" title="Must be at least 100 sqft" required>
+                                <label for="sqft">Approximate Sq Ft *</label>
+                                <input type="number" id="sqft" name="sqft" placeholder="e.g. 1500" min="100" title="Must be at least 100 sq ft" required>
                             </div>
+                            <div class="form-group">
+                                <label for="pets">Pets in the Home?</label>
+                                <select id="pets" name="pets">
+                                    <option value="" disabled selected>Select…</option>
+                                    <option value="no">No</option>
+                                    <option value="yes">Yes</option>
+                                </select>
+                            </div>
+
+                            <!-- Row 5: Cleanliness slider -->
+                            <div class="form-group full-width">
+                                <label for="cleanliness">Cleanliness Level * <span style="font-weight:400; color:var(--text-muted);">(1 = Extremely Dirty &nbsp;·&nbsp; 10 = Sparkling Clean)</span></label>
+                                <div class="slider-row">
+                                    <input type="range" id="cleanliness" name="cleanliness" min="1" max="10" step="1" value="5"
+                                        oninput="document.getElementById('cleanlinessVal').textContent = this.value">
+                                    <div class="cleanliness-badge" id="cleanlinessVal">5</div>
+                                </div>
+                                <div class="slider-labels">
+                                    <span>1 — Extremely Dirty</span>
+                                    <span>10 — Sparkling Clean</span>
+                                </div>
+                            </div>
+
+                            <!-- Row 6: Preferred Date | Notes -->
                             <div class="form-group">
                                 <label for="date">Preferred Date</label>
                                 <input type="date" id="date" name="date">
                             </div>
-                            <div class="form-group full-width">
+                            <div class="form-group">
                                 <label for="notes">Additional Notes</label>
-                                <textarea id="notes" name="notes" rows="4" placeholder="How can we help? Tell us about any specific areas or add-ons..."></textarea>
+                                <textarea id="notes" name="notes" rows="3" placeholder="Specific areas, add-ons, or anything we should know…"></textarea>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary" style="width: 100%; padding: 18px; font-size: 1rem; margin-bottom: 20px;">Request My Free Quote</button>
@@ -1636,7 +1733,7 @@
                             Thanks! We've received your request. We'll be in touch within 2 hours.
                         </div>
 
-                        <div id="formError" class="form-success" style="display:none; background: #f8d7da; color: #721c24;">
+                        <div id="formError" class="form-error">
                             <i class="fa-solid fa-triangle-exclamation" style="font-size: 2rem; display: block; margin-bottom: 10px;"></i>
                             <span id="errorMessage">Something went wrong. Please call us at +1 (747) 666-7069 or try again.</span>
                             <br><button type="button" onclick="location.reload()" class="btn btn-outline" style="margin-top: 15px; padding: 10px 20px; font-size: 0.85rem;">Try Again</button>
@@ -1647,6 +1744,8 @@
         </div>
     </section>
 
+    </main>
+
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -1655,8 +1754,8 @@
                     <h3>SirraLa</h3>
                     <p>Premier cleaning services for the modern Los Angeles lifestyle. Professional, trusted, and locally owned.</p>
                     <div class="social-links">
-                        <a href="https://www.facebook.com/profile.php?id=61579489464371" class="social-btn" style="color:white; border-color: rgba(255,255,255,0.2);" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="https://www.instagram.com/sirralacleaning" class="social-btn" style="color:white; border-color: rgba(255,255,255,0.2);" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61579489464371" class="social-btn" style="color:white; border-color: rgba(255,255,255,0.2);" aria-label="Facebook" rel="noopener noreferrer" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/sirralacleaning" class="social-btn" style="color:white; border-color: rgba(255,255,255,0.2);" aria-label="Instagram" rel="noopener noreferrer" target="_blank"><i class="fa-brands fa-instagram"></i></a>
                     </div>
                 </div>
                 
@@ -1695,9 +1794,9 @@
     </footer>
 
     <!-- Back to Top -->
-    <div id="backToTop" aria-label="Back to Top">
-        <i class="fa-solid fa-arrow-up"></i>
-    </div>
+    <button id="backToTop" type="button" aria-label="Back to top">
+        <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+    </button>
 
     <script type="application/ld+json">
     {
@@ -1711,7 +1810,7 @@
         "addressCountry": "US"
       },
       "telephone": "+1-747-666-7069",
-      "url": "https://www.sirrala.com"
+      "url": "https://sirralacleaning.com/"
     }
     </script>
 
@@ -1743,15 +1842,18 @@
             hamburger.classList.toggle('active');
             mobileNav.classList.toggle('open');
             mobileOverlay.classList.toggle('open');
-            document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : 'auto';
+            const isOpen = mobileNav.classList.contains('open');
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+            hamburger.setAttribute('aria-expanded', isOpen);
+            hamburger.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
         }
 
         hamburger.addEventListener('click', toggleMenu);
         mobileOverlay.addEventListener('click', toggleMenu);
 
-        // Close menu on link click
-        document.querySelectorAll('.mobile-nav .nav-link').forEach(link => {
-            link.addEventListener('click', toggleMenu);
+        // Close menu on any link or button click inside mobile nav
+        document.querySelectorAll('.mobile-nav .nav-link, .mobile-nav .btn').forEach(el => {
+            el.addEventListener('click', toggleMenu);
         });
 
         // Reveal Animations using Intersection Observer
@@ -1776,7 +1878,7 @@
         bookingForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
-            const submitBtn = bookingForm.querySelector('button');
+            const submitBtn = bookingForm.querySelector('[type="submit"]');
             const formError = document.getElementById('formError');
             const originalText = submitBtn.innerText;
             submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Sending...';
@@ -1797,7 +1899,7 @@
                     formSuccess.style.display = "block";
                     submitBtn.style.display = "none";
                     
-                    const scrollTarget = bookingForm.getBoundingClientRect().top + window.pageYOffset - 120;
+                    const scrollTarget = bookingForm.getBoundingClientRect().top + window.scrollY - 120;
                     window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
                 })
                 .catch((error) => {
@@ -1807,7 +1909,7 @@
                     submitBtn.disabled = false;
                     formError.style.display = 'block';
                     
-                    const scrollTarget = formError.getBoundingClientRect().top + window.pageYOffset - 120;
+                    const scrollTarget = formError.getBoundingClientRect().top + window.scrollY - 120;
                     window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
                 });
         });
