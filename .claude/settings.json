@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(d:\\SIRRALA WEB\\**)",
+      "Edit(d:\\SIRRALA WEB\\**)",
+      "Write(d:\\SIRRALA WEB\\**)",
+      "Bash(start *)",
+      "Bash(git *)"
+    ]
+  }
+}
